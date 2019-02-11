@@ -1,23 +1,23 @@
 import React from 'react'
 import ArticleList from './ArticleList'
 import { connect } from 'react-redux'
-import showHeading from '../../store/actions'
+import * as actions from '../../store/actions'
+import ArticleDetails from '../article-content/ArticleDetails'
 
 class ArticleLink extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {heading : ['arctile 1','arctile 2','arctile 3','arctile 4','arctile 5']}
+
+	handleClick= (id,heading) => {
+		this.props.history.push({pathname:'/ArticleDeatils/'+id})
 	}
-	
-	handleClick= (e) => {
-		console.log(e)
+	componentDidMount() {
+		this.props.showHeading()
 	}
   
   render() {
 		const headingFromState = this.props.heading
     return (
 		<div>
-			{headingFromState.map( (head, index ) => <ArticleList value={index} headi={head} handleClick={this.handleClick} />)}
+			{headingFromState.map( (head, index ) => <ArticleList id={index +1} headi={head} handleClick={this.handleClick} />)}
 		</div>)
   }
  
@@ -30,7 +30,7 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
 	return {
-		showHeading:()=> dispatch(showHeading())
+		showHeading:()=> dispatch(actions.fetchHeading())
 	}
 }
 

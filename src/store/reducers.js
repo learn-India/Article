@@ -1,14 +1,26 @@
-import actionTypes from './actions'
+import * as actionTypes from './actions'
 
 const initialState = {
-    heading:['arctile 1','arctile 2','arctile 3','arctile 4','arctile 5'],
-    comments:[]
+    heading:[],
+    comments:[],
+    article:''
 }
 
 const reducer = (state = initialState, action ) => {
   switch(action.type) {
       case actionTypes.SHOW_HEADING:
-        return state.heading
+        return  Object.assign({}, state, {
+          heading: action.response
+        })
+      case actionTypes.SHOW_ARTICLE:
+        return  Object.assign({}, state, {
+          article: action.response
+        })
+      case actionTypes.SHOW_COMMENTS:
+        return   Object.assign({}, state, {
+          comments: action.response
+        })
+        //[ ...state.comments, action.response ]
       default: return state
   }
 
